@@ -43,4 +43,26 @@ export class PokemonController {
         return this.pokemonService.getSinglePokemon(pokemonId);
     }
 
+    @Patch(':id')
+    async updatePokemon(
+        @Param('id') pokemonId: string,
+        @Body('name') pokemonName: string,
+        @Body('type1') pokemonType1: string,
+        @Body('type2') pokemonType2: string,
+        @Body('height') pokemonHeight: number,
+        @Body('weight') pokemonWeight: number,
+        @Body('dexNumber') pokemonDexNumber: number,
+        @Body('image') pokemonImage: string,
+        @Body('shinyImage') pokemonShinyImage: string,
+        @Body('cry') pokemonCry: string,
+    ) {
+        await this.pokemonService.updatePokemon(pokemonId, pokemonName, pokemonType1, pokemonType2, pokemonHeight, pokemonWeight, pokemonDexNumber, pokemonImage, pokemonShinyImage, pokemonCry);
+        return null;
+    }
+
+    @Delete(':id')
+    async removePokemon(@Param('id') pokemonId: string) {
+        await this.pokemonService.deletePokemon(pokemonId);
+        return null;
+    }
 }
