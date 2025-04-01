@@ -47,8 +47,11 @@ export async function getPokemonData() {
             weight: data.weight,
             dexNumber: data.id,
             image: data.sprites?.front_default || null,
+            // image url: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png
             shinyImage: data.sprites?.front_shiny || null,
-            cry: `https://pokemoncries.com/cries/${data.id}.mp3` // Assuming a URL pattern for Pokémon cries
+            // shiny image url: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png
+            cry: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${data.id}.ogg`
+            // cry url: "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/1.ogg"
         };
 
         pokemon.push(new PokemonModel(newPokemon));

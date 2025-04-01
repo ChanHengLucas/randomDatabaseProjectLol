@@ -20,10 +20,9 @@ export const PokemonSchema = new mongoose.Schema({
 });
 
 export interface Pokemon extends mongoose.Document {
-    id: string;
     name: string;
     type1: string;
-    type2: string;
+    type2?: string;
     // description: string;
     height: number;
     weight: number;

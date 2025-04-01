@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { getPokemonData, PokemonModel } from './dataFromPokemonApi';
+import { getPokemonData } from './dataFromPokemonApi';
 import { Pokemon } from './pokemon.model';
 
 // Automatically store the dataset with 1025 Pokémon by default
@@ -21,7 +21,7 @@ export class PokemonService implements OnModuleInit {
         await this.checkAndInsertPokemonData();
     }
 
-    async checkAndInsertPokemonData() {
+    async checkAndInsertPokemonData() { // next goal: fix initialization
         try {
             const pokemonData = await getPokemonData();
             for (const pokemon of pokemonData) {
