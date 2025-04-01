@@ -1,12 +1,50 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
+import { getPokemonData, PokemonModel } from './dataFromPokemonApi';
 import { Pokemon } from './pokemon.model';
 
+// Automatically store the dataset with 1025 Pokémon by default
+getPokemonData().then(pokemon => {
+    // Store the dataset as needed, e.g., in a database or a file
+    console.log('Fetched and stored 1025 Pokémon:', pokemon);
+}).catch(error => {
+    console.error('Error fetching Pokémon data:', error);
+});
+
+
 @Injectable()
-export class PokemonService {
+export class PokemonService implements OnModuleInit {
     constructor(@InjectModel('Pokemon') private readonly pokemonModel: Model<Pokemon>) {}
+
+    async onModuleInit() {
+        await this.checkAndInsertPokemonData();
+    }
+
+    async checkAndInsertPokemonData() {
+        try {
+            const pokemonData = await getPokemonData();
+            for (const pokemon of pokemonData) {
+                const existingPokemon = await this.pokemonModel.findOne({ dexNumber: pokemon.dexNumber }).exec();
+                if (!existingPokemon) {
+                    await this.insertPokemon(
+                        pokemon.name,
+                        pokemon.type1,
+                        pokemon.type2,
+                        pokemon.height,
+                        pokemon.weight,
+                        pokemon.dexNumber,
+                        pokemon.image,
+                        pokemon.shinyImage,
+                        pokemon.cry
+                    );
+                }
+            }
+            console.log('Checked and inserted Pokémon data.');
+        } catch (error) {
+            console.error('Error checking and inserting Pokémon data:', error);
+        }
+    }
 
     async insertPokemon(
         name: string, // species: name to get the name of the Pokémon
@@ -104,7 +142,6 @@ export class PokemonService {
             throw new Error('Could not find Pokemon.');
         }
     }
-
 
     private async findPokemon(id: string) {
         let pokemon;

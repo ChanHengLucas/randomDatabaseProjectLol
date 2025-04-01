@@ -1,22 +1,10 @@
-
-// function dataFromPokemonApi() { // outdated function from js
-//     let pokemon = [];
-
-    // for (i = 1; i <= 1025; i++){
-    //     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-    //     pokemon[i]['name'] = (`https://pokeapi.co/api/v2/pokemon/${i}`)['species']['name'];
-    // }
-
-// }
-
-async function dataFromPokemonApi() {
+export async function dataFromPokemonApi() {
     try {
         const response = await fetch('https://pokeapi.co/api/v2/pokemon');
         if (!response.ok) {
             throw new Error('Failed to fetch.');
         }
         const data = await response.json();
-        // console.log(data);
         return data;
     } catch (error) {
         console.error(error);
@@ -24,7 +12,7 @@ async function dataFromPokemonApi() {
     }
 }
 
-interface Pokemon {
+export interface Pokemon {
     name: string;
     type1: string | null;
     type2: string | null;
@@ -36,12 +24,14 @@ interface Pokemon {
     cry: string;
 }
 
-class PokemonModel {
+export class PokemonModel {
     constructor(public data: Pokemon) {}
 }
 
-async function getPokemonData() {
+export async function getPokemonData() {
     const pokemon: PokemonModel[] = [];
+    const initialData = await dataFromPokemonApi();
+
     for (let i = 1; i <= 1025; i++) {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
         if (!response.ok) {
@@ -58,10 +48,18 @@ async function getPokemonData() {
             dexNumber: data.id,
             image: data.sprites?.front_default || null,
             shinyImage: data.sprites?.front_shiny || null,
-            cry: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${i}.ogg` // Assuming a URL pattern for Pokémon cries
+            cry: `https://pokemoncries.com/cries/${data.id}.mp3` // Assuming a URL pattern for Pokémon cries
         };
 
         pokemon.push(new PokemonModel(newPokemon));
     }
     return pokemon;
 }
+
+// Automatically store the dataset with 1025 Pokémon by default
+getPokemonData().then(pokemon => {
+    // Store the dataset as needed, e.g., in a database or a file
+    console.log('Fetched and stored 1025 Pokémon:', pokemon);
+}).catch(error => {
+    console.error('Error fetching Pokémon data:', error);
+});
