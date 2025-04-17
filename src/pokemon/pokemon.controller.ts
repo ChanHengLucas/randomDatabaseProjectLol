@@ -55,6 +55,18 @@ export class PokemonController {
         return pokemon;
     }
 
+    @Get('type/:type')
+    async getPokemonByType(@Param('type') pokemonType: string) {
+        const pokemons = await this.pokemonService.getPokemonByType(pokemonType);
+        return pokemons;
+    }
+
+    @Get('dex/:dexNumber')
+    async getPokemonByDexNumber(@Param('dexNumber') pokemonDexNumber: number) {
+        const pokemon = await this.pokemonService.getPokemonByDexNumber(pokemonDexNumber);
+        return pokemon;
+    }
+
     @Patch(':id')
     async updatePokemon(
         @Param('id') pokemonId: string,

@@ -114,6 +114,44 @@ export class PokemonService implements OnModuleInit {
         };
     }
 
+    async getPokemonByType(pokemonType: string) {
+        const pokemons = await this.pokemonModel.find({ $or: [{ type1: pokemonType }, { type2: pokemonType }] }).exec();
+        if (!pokemons || pokemons.length === 0) {
+            throw new Error('Could not find Pokemon.');
+        }
+        return pokemons.map(pokemon => ({
+            id: pokemon.id,
+            name: pokemon.name,
+            type1: pokemon.type1,
+            type2: pokemon.type2,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            dexNumber: pokemon.dexNumber,
+            image: pokemon.image,
+            shinyImage: pokemon.shinyImage,
+            cry: pokemon.cry,
+        }));
+    }
+
+    async getPokemonByDexNumber(pokemonDexNumber: number) {
+        const pokemon = await this.pokemonModel.findOne({ dexNumber: pokemonDexNumber }).exec();
+        if (!pokemon) {
+            throw new Error('Could not find Pokemon.');
+        }
+        return {
+            id: pokemon.id,
+            name: pokemon.name,
+            type1: pokemon.type1,
+            type2: pokemon.type2,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            dexNumber: pokemon.dexNumber,
+            image: pokemon.image,
+            shinyImage: pokemon.shinyImage,
+            cry: pokemon.cry,
+        };
+    }
+
     async updatePokemon(pokemonId: string, name: string, type1: string, type2: string, height: number, weight: number, dexNumber: number, image: string, shinyImage: string, cry: string) {
         const updatedPokemon = await this.findPokemon(pokemonId);
         if (name) {
