@@ -133,3 +133,43 @@ export class PokemonController {
         return { message: 'Pokémon deleted successfully.' };
     }
 }
+
+// Hosting API online through flydev
+// Or check on other projects and make adjustments or modifications to those
+// Or literally combine everything I've done so far
+
+// So far there's 4 things I can do:
+// 1. Continue with this project and make it a website
+// 2. Improve the pokemon battle in the about me project
+// 3. Modify the pokemon explosion game (so when a pokemon passes by another one, the other one explodes)
+// 4. Create an entirely new project that would have real life applications (and sneak some pokemon in there)
+// If I were to make a new project, I would have to define my goal before I get started
+
+// Could be ranging anywhere from a fun game to a serious project
+// I want it to either be a fun game or a mixture of both
+// Something too serious just doesn't feel right since I'm already working on that
+
+// I could try to implement a multiplayer game so people can play it on a website on different devices
+// Game can range anywhere from a Pokemon battle simulator (PVP or PVE with AI)
+// Brief idea: Generate a final stage Pokemon that the AI will use; the player would choose another Pokemon to try to defeat it
+// The AI would choose the 4 best moves that the Pokemon can learn that would counter the player's chosen Pokemon
+// The AI could also choose an item to use on the Pokemon
+// The player would have to choose the moveset and item for their Pokemon
+
+// There would also be double battles or a full team of 6 Pokemon
+
+// For PVP, both players would choose a team of 6 Pokemon, then the teams would be revealed
+// The players would then choose the moves and items for their Pokemon
+// Players can set defaults for movesets and items
+
+// This idea seems way too difficult for a solo project lol
+
+// I could add a twist to this project, where there's different types of rounds
+// Could include 5 rounds where the players have to guess the Pokemon based on its properties for points (make sure the Pokemon aren't repeated)
+// Then include a battle where the players can choose the moves and items for one of the previously mentioned Pokemon (more points)
+// Then generate a random scenario for the players to choose one of the previous Pokemon that they think would fit best, along with reasoning (more points)
+// Then ...
+// The player with the most points at the end wins
+// Also seems way too difficult
+
+// I would simply stick to one of the above ideas and implement it
