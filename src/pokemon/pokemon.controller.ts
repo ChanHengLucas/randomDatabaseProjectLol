@@ -173,3 +173,14 @@ export class PokemonController {
 // Also seems way too difficult
 
 // I would simply stick to one of the above ideas and implement it
+
+
+
+
+// Current idea: Implement cursed random scenarios for players to choose a Pokemon that they think would fit best
+// AI would determine which Pokemon fits the scenario the most, 
+// and explains why so (Inaccuracy would be funny since it's unpreventable and unpredictable)
+// Whoever with the most points by the end of 25 wins
+
+// Might use client side JS to implement the game
+
