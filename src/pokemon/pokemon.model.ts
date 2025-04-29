@@ -32,4 +32,4 @@ export interface Pokemon extends mongoose.Document {
     cry: string;
 }
 
-// Idea: change between normal and shiny by clicking on image
+// Idea: change between normal and shiny by clicking on image 
